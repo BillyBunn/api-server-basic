@@ -12,6 +12,10 @@ const express = require('express')
 // Prepare express app
 const app = express()
 
+// Routes
+//  --- Static Routes
+app.use('/docs', express.static('docs'))
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 /**
@@ -20,6 +24,6 @@ app.get('/', (req, res) => res.send('Hello World!'))
  * @param {integer} [port=process.env.PORT] - starts the express server at port specified
  */
 const start = (port = process.env.PORT) =>
-  app.listen(port, () => console.log(`Server up on p ${port}!`))
+  app.listen(port, () => console.log(`Server up on port ${port}…`))
 
 module.exports = { start }
