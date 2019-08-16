@@ -1,12 +1,15 @@
+/**
+ *  @file Entry point of application where server is started.
+ *  @author {@link https://www.billybunn.com/ Billy Bunn}
+ *  @version 1.0.0
+ *  @license {@link https://github.com/BillyBunn/api-server-basic/LICENSE/ MIT License}
+ *  @module index.js
+ *  @requires {@link https://github.com/motdotla/dotenv dotenv}
+ *  @requires src/app
+ */
+
 'use strict'
 
-const express = require('express')
+require('dotenv').config()
 
-// Prepare express app
-const app = express()
-
-const PORT = 3000
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
-app.listen(PORT, () => console.log(`Server up on port ${PORT}!`))
+require('./src/app').start(process.env.PORT)

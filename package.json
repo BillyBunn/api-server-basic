@@ -4,7 +4,8 @@
   "description": "Extensible REST API server with CRUD methods. Built in NodeJS with Express and MongoDB.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jsdoc": "./node_modules/.bin/jsdoc -c ./docs/config/jsdoc.config.json"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/BillyBunn/api-server-basic#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.3"
   }
 }
