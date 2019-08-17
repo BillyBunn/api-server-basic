@@ -13,7 +13,7 @@ const express = require('express')
 const app = express()
 
 // Routes
-//  --- Static Routes
+/** Static route to serve JSDocs */
 app.use('/docs', express.static('docs'))
 
 app.get('/', (req, res) => res.send('Hello World!'))
