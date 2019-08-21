@@ -14,7 +14,8 @@ const morgan = require('morgan')
 // Prepare express app
 const app = express()
 
-// App-level middleware
+// Application-level middleware
+/** HTTP request logger */
 app.use(morgan('dev'))
 
 // Routes
@@ -22,6 +23,26 @@ app.use(morgan('dev'))
 app.use('/docs', express.static('docs'))
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
+
+
+app.use(notFound)
+
+/**
+ * Sends a JSON formatted 404 response
+ *
+ * @param {object} req - Express HTTP request object
+ * @param {object} res - Express HTTP response object
+ * @param {function} next - Express middleware function
+ */
+function notFound(req, res, next) {
+  let error = { error: '404 Not Found' }
+  res
+    .status(404)
+    .json(error)
+    .end()
+}
+
 
 /**
  * Starts the server at specified port
