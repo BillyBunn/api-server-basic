@@ -2,15 +2,20 @@
  *  @file Main server application where middleware, routes, and configurations are compiled
  *  @module src/app
  *  @requires {@link https://github.com/expressjs/express express}
+ *  @requires {@link https://github.com/expressjs/morgan morgan}
  */
 
 'use strict'
 
 // 3rd-party dependencies
 const express = require('express')
+const morgan = require('morgan')
 
 // Prepare express app
 const app = express()
+
+// App-level middleware
+app.use(morgan('dev'))
 
 // Routes
 /** Static route to serve JSDocs */
