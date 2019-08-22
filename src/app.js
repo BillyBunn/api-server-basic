@@ -60,7 +60,7 @@ function getCategory(req, res, next) {
   // expects an array with the one matching record from the model
   categories
     .get(req.params.id)
-    .then(result => res.status(200).json(result[0]))
+    .then(result => res.status(200).json(result))
     .catch(next)
 }
 

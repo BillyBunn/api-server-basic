@@ -5,9 +5,17 @@ const uuid = require('uuid/v4')
 const schema = {
   _id: { required: true },
   name: { required: true },
-  display_name: { required: true }
+  display_name: { required: true },
+  not_required: { required: false },
+  required_not_specified: { something: 10 }
 }
-let requiredFields
+let requiredFields = Object.entries(schema).reduce(
+  (arr, [key, { required }]) => {
+    if (required) arr.push(key)
+    return arr
+  },
+  []
+)
 
 class Categories {
   constructor() {
@@ -15,21 +23,34 @@ class Categories {
   }
 
   get(_id) {
-    let response = _id
-      ? this.db.filter(record => record._id === _id)[0]
-      : this.db
-    return response
+    let response
+    if (_id) {
+      response = this.db.filter(record => record._id === _id)[0]
+      if (!response)
+        throw {
+          status: 404,
+          name: `Record not found`,
+          message: `No record with that _id found.`
+        }
+    } else {
+      response = this.db
+    }
+
+    return Promise.resolve(response)
   }
 
   post(record) {
     record._id = uuid()
     if (this.validate(record)) {
       this.db.push(record)
-      return record
+      return Promise.resolve(record)
     } else {
-      return `Invalid entry: must contain all required fields: ${requiredFields.join(
-        ', '
-      )}`
+      throw {
+        status: 400,
+        message: `Invalid entry: must contain all required fields: ${requiredFields.join(
+          ', '
+        )}`
+      }
     }
   }
 
@@ -54,20 +75,14 @@ class Categories {
   }
 
   validate(record) {
-    let valid = true
+    for (const field in schema) {
+      if (schema[field].required && !record[field]) return false
+    }
+    return true
 
-    requiredFields = Object.entries(schema).reduce((arr, keyPair) => {
-      if (keyPair[1].required) arr.push(keyPair[0])
-      return arr
-    }, [])
-
-    requiredFields.forEach(field => {
-      if (!Object.keys(record).includes(field)) {
-        valid = false
-      }
-    })
-
-    return valid
+    // echo '{"username":"<yourusername>", "password":"<yourpassword>", "role":"role"}' | http :<yourPORT>/signup
+    // echo '{"name":"clothing", "display_name":"Clothing, Shoes, Jewelry & Watches"}' | http :3000/categories
+    // echo '{"name":"electronics", "display_name":"Electronics, Computers & Office", "not_required":"something here that is not required"}' | http :3000/categories
   }
 }
 
