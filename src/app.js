@@ -68,10 +68,7 @@ function postCategory(req, res, next) {
   // expects the record that was just added to the database
   categories
     .post(req.body)
-    .then(result => {
-      // console.log({ result })
-      return res.status(200).json(result)
-    })
+    .then(result => res.status(201).json(result))
     .catch(next)
 }
 
@@ -79,7 +76,7 @@ function putCategory(req, res, next) {
   // expects the record that was just updated in the database
   categories
     .put(req.params.id, req.body)
-    .then(result => res.status(200).json(result[0]))
+    .then(result => res.status(200).json(result))
     .catch(next)
 }
 
@@ -121,12 +118,12 @@ function errorHandler(err, req, res, next) {
   console.error('ERROR:', err)
 
   const status = err.status || 500,
-    name = err.name || 'Unknown Error',
+    error = err.name || 'Unknown Error',
     message = typeof err === 'string' ? err : err.message || 'An error occurred'
 
   res
     .status(status)
-    .json({ status, name, message })
+    .json({ status, error, message })
     .end()
 }
 
