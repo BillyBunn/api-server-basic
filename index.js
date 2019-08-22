@@ -5,11 +5,16 @@
  *  @license {@link https://github.com/BillyBunn/api-server-basic/LICENSE/ MIT License}
  *  @module index.js
  *  @requires {@link https://github.com/motdotla/dotenv dotenv}
+ *  @requires {@link https://github.com/Automattic/mongoose mongoose}
  *  @requires src/app
  */
 
 'use strict'
 
 require('dotenv').config()
+
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 
 require('./src/app').start(process.env.PORT)
