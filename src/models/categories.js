@@ -9,6 +9,7 @@ const schema = {
   not_required: { required: false },
   required_not_specified: { something: 10 }
 }
+
 let requiredFields = Object.entries(schema).reduce(
   (arr, [key, { required }]) => {
     if (required) arr.push(key)
@@ -42,9 +43,9 @@ class Categories {
   }
 
   put(_id, entry) {
-    this.existsInDB(_id) // throws if _id doesn't exist
+    this.existsInDB(_id)
     entry._id = _id
-    this.hasAllRequiredFields(entry) // throws if required fields are missing
+    this.hasAllRequiredFields(entry)
 
     this.db = this.db.map(dbRecord =>
       dbRecord._id === _id ? (dbRecord = entry) : dbRecord
@@ -53,21 +54,16 @@ class Categories {
     return this.get(_id)
   }
 
-  // patch(_id, entry) {
-  //   this.existsInDB(_id) // throws if _id doesn't exist
-  //   // entry._id = _id
-  //   // this.hasAllRequiredFields(entry) // throws if required fields are missing
-
-
-  //   this.db = this.db.map(dbRecord =>
-  //     dbRecord._id === _id ? (dbRecord = entry) : dbRecord
-  //   )
-
-  //   return this.get(_id)
-  // }
+  patch(_id, entry) {
+    this.existsInDB(_id)
+    this.db = this.db.map(dbRecord =>
+      dbRecord._id === _id ? (dbRecord = { ...dbRecord, ...entry }) : dbRecord
+    )
+    return this.get(_id)
+  }
 
   delete(_id) {
-    this.existsInDB(_id) // throws if _id doesn't exist
+    this.existsInDB(_id)
     this.db = this.db.filter(record => record._id !== _id)
     return Promise.resolve({})
   }

@@ -21,7 +21,12 @@ const app = express()
 // Application-level middleware
 /** HTTP request logger */
 app.use(morgan('dev'))
+/** Parses payload as JSON and exposes the resulting object on req.body. Based on body-parser. */
 app.use(express.json())
+/** Parses URL encoded data  and exposes the resulting object on req.body.
+ * Note: browsers typically send form data in this format.
+ */
+app.use(express.urlencoded({ extended: true }))
 
 // Routes --------------------------------------------------
 /** Static route to serve JSDocs */
@@ -40,6 +45,7 @@ app.get('/categories', getCategories)
 app.post('/categories', postCategory)
 app.get('/categories/:id', getCategory)
 app.put('/categories/:id', putCategory)
+app.patch('/categories/:id', patchCategory)
 app.delete('/categories/:id', deleteCategory)
 
 function getCategories(req, res, next) {
@@ -76,6 +82,14 @@ function putCategory(req, res, next) {
   // expects the record that was just updated in the database
   categories
     .put(req.params.id, req.body)
+    .then(result => res.status(200).json(result))
+    .catch(next)
+}
+
+function patchCategory(req, res, next) {
+  // expects the record that was just patched in the database
+  categories
+    .patch(req.params.id, req.body)
     .then(result => res.status(200).json(result))
     .catch(next)
 }
