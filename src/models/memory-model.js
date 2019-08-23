@@ -40,13 +40,11 @@ class MemoryModel {
   get(_id) {
     let response
     if (_id) {
-      this.existsInDB(_id) // throws if _id doesn't exist
-      response = this.db.filter(record => record._id === _id)[0]
-      // const idx = this.db.findIndex(record => record._id === _id) // find the record
+      const idx = this.getRecordIdx(_id) // throws if _id doesn't exist
+      response = this.db[idx]
     } else {
       response = this.db
     }
-
     return Promise.resolve(response)
   }
 
@@ -57,10 +55,8 @@ class MemoryModel {
    */
   post(entry) {
     entry._id = uuid()
-    // this.hasAllRequiredFields(entry) // throws if required fields are missing
-    const record = this.sanitize(entry)
+    const record = this.sanitize(entry) // throws if missing required fields
     this.db.push(record)
-    // return Promise.resolve(record)
     return this.get(record._id)
   }
 
@@ -71,27 +67,17 @@ class MemoryModel {
    * @returns {function} Calls get(_id) method to return updated record in database
    */
   put(_id, entry) {
-    this.existsInDB(_id)
-    entry._id = _id
-    // this.hasAllRequiredFields(entry)
-    const newRecord = this.sanitize(entry)
-
-    this.db = this.db.map(dbRecord =>
-      dbRecord._id === _id ? (dbRecord = newRecord) : dbRecord
-    )
-
-    // TODO: Consider mutable method below
-    // const idx = this.db.findIndex(record => record._id === _id) // find the record
-    // this.db[idx] = entry
-
+    const idx = this.getRecordIdx(_id) // throws if _id doesn't exist
+    entry._id = _id // incase _id is omitted from entry
+    const updatedRecord = this.sanitize(entry)
+    this.db[idx] = updatedRecord
     return this.get(_id)
   }
 
   patch(_id, updates) {
-    this.existsInDB(_id)
-    this.db = this.db.map(record =>
-      record._id === _id ? (record = { ...record, ...updates }) : record
-    )
+    const idx = this.getRecordIdx(_id) // throws if _id doesn't exist
+    const patchedRecord = this.sanitize({ ...this.db[idx], ...updates })
+    this.db[idx] = patchedRecord
     return this.get(_id)
   }
 
@@ -101,12 +87,8 @@ class MemoryModel {
    * @returns {Promise<object>} A promise that contains an empty object
    */
   delete(_id) {
-    this.existsInDB(_id)
-    this.db = this.db.filter(record => record._id !== _id)
-    // TODO: See if mutable method below works instead of current filter method
-
-    // const idx = this.db.findIndex(record => record._id === _id) // find the record
-    // this.db.splice(idx, 1) // delete the record
+    const idx = this.getRecordIdx(_id)
+    this.db.splice(idx, 1) // delete the record
     return Promise.resolve({})
   }
 
@@ -129,35 +111,17 @@ class MemoryModel {
     return record
   }
 
-  hasAllRequiredFields(entry) {
-    for (const field in this.schema) {
-      if (this.schema[field].required && !entry[field])
-        throw {
-          status: 400,
-          name: `Missing Required Field: ${field}`,
-          message: `Invalid entry: must contain all required fields: ${this.requiredFields.join(
-            ', '
-          )}.`
-        }
-    }
-  }
-
-  existsInDB(_id) {
-    // if (!this.db.findIndex(record => record._id === _id)
-    if (!this.db.map(record => record._id).includes(_id))
+  getRecordIdx(_id) {
+    const idx = this.db.findIndex(record => record._id === _id)
+    console.log('getRecordIdx:', { idx, _id })
+    if (idx < 0)
       throw {
         status: 404,
         name: `Record Not Found`,
         message: `No records with _id: ${_id} found.`
       }
+    return idx
   }
-
-  // echo '{"username":"<yourusername>", "password":"<yourpassword>", "role":"role"}' | http :<yourPORT>/signup
-  // echo '{"name":"clothing", "display_name":"Clothing, Shoes, Jewelry & Watches"}' | http :3000/categories
-  // echo '{"name":"electronics", "display_name":"Electronics, Computers & Office", "not_required":"something here that is not required"}' | http :3000/categories
-
-  // echo '{"name":"foobar", "display_name":"Clothing, Shoes, Jewelry & Watches", "not_required":"a new thing"}' | http PUT :3000/categories/3038cf84-b49b-4790-8d86-232d78a7fd8e
-  // }
 }
 
 module.exports = MemoryModel
