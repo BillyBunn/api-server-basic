@@ -18,8 +18,9 @@ const notFound = require(`${cwd}/src/middleware/404.js`)
 const errorHandler = require(`${cwd}/src/middleware/500.js`)
 
 // Models
-const Categories = require('./models/categories')
-const categories = new Categories()
+// const Categories = require('./models/categories/categories')
+// const categories = new Categories()
+const categories = require('./models/categories/categories')
 
 // Prepare express app
 const app = express()

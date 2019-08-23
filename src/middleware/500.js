@@ -14,7 +14,7 @@
  * @param {object} res - Express HTTP response object
  * @param {function} next - Express middleware function
  */
-module.exports = function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res, next) {
   console.error('ERROR:', err)
 
   const status = err.status || 500,
@@ -26,3 +26,5 @@ module.exports = function errorHandler(err, req, res, next) {
     .json({ status, error, message })
     .end()
 }
+
+module.exports = errorHandler

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: src/app</title>
+    <title>JSDoc: Module: middleware/500</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: src/app</h1>
+    <h1 class="page-title">Module: middleware/500</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Main server application where middleware, routes, and configurations are compiled</div>
+            <div class="description">Error-handler middleware</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_app.js.html">src/app.js</a>, <a href="src_app.js.html#line1">line 1</a>
+        <a href="src_middleware_500.js.html">src/middleware/500.js</a>, <a href="src_middleware_500.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -124,14 +124,6 @@
     
 
     
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="https://github.com/expressjs/express">express</a></li>
-        
-            <li><a href="https://github.com/expressjs/morgan">morgan</a></li>
-        </ul>
-    
 
     
 
@@ -152,7 +144,7 @@
     
 
     
-    <h4 class="name" id="~start"><span class="type-signature">(inner) </span>start<span class="signature">(port<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~errorHandler"><span class="type-signature">(inner) </span>errorHandler<span class="signature">(err, req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -160,7 +152,8 @@
 
 
 <div class="description">
-    Starts the server at specified port
+    Sends a JSON formatted error response
+Defaults to status 500 if error thrown does not specify
 </div>
 
 
@@ -184,11 +177,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -200,39 +189,95 @@
 
         <tr>
             
-                <td class="name"><code>port</code></td>
+                <td class="name"><code>err</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">object</span>
+|
+
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last">Express server error message</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
             
 
             
-                <td class="default">
-                
-                    process.env.PORT
-                
-                </td>
+
+            <td class="description last">Express HTTP request object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
             
 
-            <td class="description last">starts the express server at port specified</td>
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Express HTTP response object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Express middleware function</td>
         </tr>
 
     
@@ -273,7 +318,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_app.js.html">src/app.js</a>, <a href="src_app.js.html#line119">line 119</a>
+        <a href="src_middleware_500.js.html">src/middleware/500.js</a>, <a href="src_middleware_500.js.html#line17">line 17</a>
     </li></ul></dd>
     
 

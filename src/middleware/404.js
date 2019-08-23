@@ -12,10 +12,12 @@
  * @param {object} res - Express HTTP response object
  * @param {function} next - Express middleware function
  */
-module.exports = function notFound(req, res, next) {
+function notFound(req, res, next) {
   let error = { error: '404 Not Found' }
   res
     .status(404)
     .json(error)
     .end()
 }
+
+module.exports = notFound
