@@ -106,7 +106,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Outline of the data fields required and allowed</td>
         </tr>
 
     
@@ -147,7 +147,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line39">line 39</a>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -304,7 +304,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line116">line 116</a>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -463,7 +463,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line56">line 56</a>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -521,7 +521,360 @@
     
 
     
-    <h4 class="name" id="post"><span class="type-signature"></span>post<span class="signature">(entry)</span><span class="type-signature"> &rarr; {Promise.&lt;object>}</span></h4>
+    <h4 class="name" id="getRecordIdx"><span class="type-signature"></span>getRecordIdx<span class="signature">(_id)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks if a record exists in the database
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Unique identifier of an individual record</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line132">line 132</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        Will throw an error if no record with the given _id exists
+    
+    </div>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Index of the record object in the memory database
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="patch"><span class="type-signature"></span>patch<span class="signature">(_id, updates)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Replaces and/or adds fields to a record in the database
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Unique identifier of an individual record</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>updates</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">New data to add/update to an existing record</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Calls get(_id) method to return updated record in database
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="post"><span class="type-signature"></span>post<span class="signature">(entry)</span><span class="type-signature"></span></h4>
     
 
     
@@ -581,7 +934,7 @@
 
             
 
-            <td class="description last">New record entry matching the format of the schema</td>
+            <td class="description last">New record entry that must match the format of the schema</td>
         </tr>
 
     
@@ -622,7 +975,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line73">line 73</a>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -651,22 +1004,10 @@
 
         
 <div class="param-desc">
-    A promise that contains the record created
+    Calls get(_id) method to return the created record in database
 </div>
 
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;object></span>
-
-
-    </dd>
-</dl>
 
     
 
@@ -680,7 +1021,7 @@
     
 
     
-    <h4 class="name" id="put"><span class="type-signature"></span>put<span class="signature">(id, entry)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="put"><span class="type-signature"></span>put<span class="signature">(_id, entry)</span><span class="type-signature"> &rarr; {function}</span></h4>
     
 
     
@@ -724,7 +1065,7 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>_id</code></td>
             
 
             <td class="type">
@@ -740,7 +1081,7 @@
 
             
 
-            <td class="description last">Unique identifier of an individual record (UUID format)</td>
+            <td class="description last">Unique identifier of an individual record</td>
         </tr>
 
     
@@ -763,7 +1104,7 @@
 
             
 
-            <td class="description last">New record entry matching the format of the schema</td>
+            <td class="description last">New record entry that must match the format of the schema</td>
         </tr>
 
     
@@ -804,7 +1145,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line87">line 87</a>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -832,6 +1173,10 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    Calls get(_id) method to return updated record in database
+</div>
+
 
 
 <dl>
@@ -841,6 +1186,177 @@
     <dd>
         
 <span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sanitize"><span class="type-signature"></span>sanitize<span class="signature">(entry)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks if all fields required by schema are present in an entry and returns a new record object containing only fields specified by schema
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>entry</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Record entry that must match the format of the schema</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_models_memory-model.js.html">src/models/memory-model.js</a>, <a href="src_models_memory-model.js.html#line107">line 107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        Will throw an error if schema required fields are missing from entry
+    
+    </div>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    New record object with all required fields and containing only fields included in the schema
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
 
 
     </dd>
@@ -874,7 +1390,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 23 2019 12:13:38 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Aug 23 2019 13:58:52 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

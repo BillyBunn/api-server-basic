@@ -50,7 +50,7 @@ class MemoryModel {
 
   /**
    * Creates a new record with a unique _id property
-   * @param {object} entry New record entry matching the format of the schema
+   * @param {object} entry New record entry that must match the format of the schema
    * @returns Calls get(_id) method to return the created record in database
    */
   post(entry) {
@@ -62,8 +62,8 @@ class MemoryModel {
 
   /**
    * Replaces an entire individual record in the database
-   * @param {string} id Unique identifier of an individual record (UUID format)
-   * @param {object} entry New record entry matching the format of the schema
+   * @param {string} _id Unique identifier of an individual record
+   * @param {object} entry New record entry that must match the format of the schema
    * @returns {function} Calls get(_id) method to return updated record in database
    */
   put(_id, entry) {
@@ -74,6 +74,12 @@ class MemoryModel {
     return this.get(_id)
   }
 
+  /**
+   * Replaces and/or adds fields to a record in the database
+   * @param {string} _id Unique identifier of an individual record
+   * @param {object} updates New data to add/update to an existing record
+   * @returns {function} Calls get(_id) method to return updated record in database
+   */
   patch(_id, updates) {
     const idx = this.getRecordIdx(_id) // throws if _id doesn't exist
     const patchedRecord = this.sanitize({ ...this.db[idx], ...updates })
@@ -92,6 +98,12 @@ class MemoryModel {
     return Promise.resolve({})
   }
 
+  /**
+   * Checks if all fields required by schema are present in an entry and returns a new record object containing only fields specified by schema
+   * @param {object} entry Record entry that must match the format of the schema
+   * @throws Will throw an error if schema required fields are missing from entry
+   * @returns {object} New record object with all required fields and containing only fields included in the schema
+   */
   sanitize(entry) {
     const record = {}
     for (const field in this.schema) {
@@ -111,9 +123,14 @@ class MemoryModel {
     return record
   }
 
+  /**
+   * Checks if a record exists in the database
+   * @param {string} _id Unique identifier of an individual record
+   * @throws Will throw an error if no record with the given _id exists
+   * @returns {number} Index of the record object in the memory database
+   */
   getRecordIdx(_id) {
     const idx = this.db.findIndex(record => record._id === _id)
-    console.log('getRecordIdx:', { idx, _id })
     if (idx < 0)
       throw {
         status: 404,
