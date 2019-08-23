@@ -7,9 +7,14 @@
 
 'use strict'
 
+const cwd = process.cwd()
+
 // 3rd-party dependencies
 const express = require('express')
 const morgan = require('morgan')
+
+// Esoteric resources
+const notFound = require(`${cwd}/src/middleware/404.js`)
 
 // Models
 const Categories = require('./models/categories')
@@ -104,21 +109,6 @@ function deleteCategory(req, res, next) {
 
 app.use(notFound)
 app.use(errorHandler)
-
-/**
- * Sends a JSON formatted "404 Not Found" response
- *
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
- */
-function notFound(req, res, next) {
-  let error = { error: '404 Not Found' }
-  res
-    .status(404)
-    .json(error)
-    .end()
-}
 
 /**
  * Sends a JSON formatted "500 Internal Server Error" response
