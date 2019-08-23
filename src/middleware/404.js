@@ -1,4 +1,5 @@
 'use strict'
+
 /**
  * @file 404 middleware
  * @module middleware/404

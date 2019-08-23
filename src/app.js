@@ -15,6 +15,7 @@ const morgan = require('morgan')
 
 // Esoteric resources
 const notFound = require(`${cwd}/src/middleware/404.js`)
+const errorHandler = require(`${cwd}/src/middleware/500.js`)
 
 // Models
 const Categories = require('./models/categories')
@@ -109,27 +110,6 @@ function deleteCategory(req, res, next) {
 
 app.use(notFound)
 app.use(errorHandler)
-
-/**
- * Sends a JSON formatted "500 Internal Server Error" response
- *
- * @param {(object|string)} err - Express server error message
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
- */
-function errorHandler(err, req, res, next) {
-  console.error('ERROR:', err)
-
-  const status = err.status || 500,
-    error = err.name || 'Unknown Error',
-    message = typeof err === 'string' ? err : err.message || 'An error occurred'
-
-  res
-    .status(status)
-    .json({ status, error, message })
-    .end()
-}
 
 /**
  * Starts the server at specified port
