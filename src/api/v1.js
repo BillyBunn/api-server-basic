@@ -65,7 +65,7 @@ function handlePut(req, res, next) {
 
 function handlePatch(req, res, next) {
   // expects the record that was just patched in the database
-  categories
+  req.model
     .patch(req.params.id, req.body)
     .then(result => res.status(200).json(result))
     .catch(next)
@@ -73,7 +73,7 @@ function handlePatch(req, res, next) {
 
 function handleDelete(req, res, next) {
   // Expects no return value (resource was deleted)
-  categories
+  req.model
     .delete(req.params.id)
     .then(result => res.status(200).json(result))
     .catch(next)
