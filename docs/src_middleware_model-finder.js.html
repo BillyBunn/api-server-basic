@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/500.js</title>
+    <title>JSDoc: Source: src/middleware/model-finder.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/500.js</h1>
+    <h1 class="page-title">Source: src/middleware/model-finder.js</h1>
 
     
 
@@ -29,33 +29,34 @@
             <pre class="prettyprint source linenums"><code>'use strict'
 
 /**
- * @file Error-handler middleware
- * @module middleware/500
+ * @file Data model utilities and middleware
+ * @module middleware/model-finder
  */
 
-/**
- * Sends a JSON formatted error response
- * Defaults to status 500 if error thrown does not specify
- *
- * @param {(object|string)} err - Express server error message
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
- */
-function errorHandler(err, req, res, next) {
-  console.error('ERROR:', err)
+const { readdir, statSync, lstatSync } = require('fs')
+const { promisify } = require('util')
 
-  const status = err.status || 500,
-    error = err.name || 'Unknown Error',
-    message = typeof err === 'string' ? err : err.message || 'An error occurred'
+const modelsFolder = `${__dirname}/../models`
 
-  res
-    .status(status)
-    .json({ status, error, message })
-    .end()
+function attachModel(req, res, next) {
+  let modelName = req.params.model.replace(/[^a-z0-9-_]/gi, '')
+  req.model = require(`../models/${modelName}/${modelName}-model.js`)
+  next()
 }
 
-module.exports = errorHandler
+function listModels() {
+  return promisify(readdir)(modelsFolder)
+    .then(contents =>
+      contents.filter(
+        item =>
+          lstatSync(`${modelsFolder}/${item}`).isDirectory() &amp;&amp;
+          statSync(`${modelsFolder}/${item}/${item}-model.js`)
+      )
+    )
+    .catch(console.error)
+}
+
+module.exports = { attachModel, listModels }
 </code></pre>
         </article>
     </section>
