@@ -2,9 +2,9 @@
 
 /**
  * @file Data model utilities and middleware
- * @module middleware/model-finder
- *  @requires {@link https://nodejs.org/api/fs.html#fs_file_system fs}
- *  @requires {@link https://nodejs.org/api/util.html#util_util util}
+ * @module src/middleware/model-finder
+ * @requires {@link https://nodejs.org/api/fs.html#fs_file_system fs}
+ * @requires {@link https://nodejs.org/api/util.html#util_util util}
  */
 
 const { readdir, statSync, lstatSync } = require('fs')

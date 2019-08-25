@@ -3,6 +3,9 @@
  *  @module src/app
  *  @requires {@link https://github.com/expressjs/express express}
  *  @requires {@link https://github.com/expressjs/morgan morgan}
+ *  @requires src/api/v1
+ *  @requires src/middleware/404
+ *  @requires src/middleware/500
  */
 
 'use strict'

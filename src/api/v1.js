@@ -4,13 +4,18 @@
  * @file API Router Module (V1)
  * Integrates with various models through a common Interface (.get(), .post(), .put(), patch(), .delete())
  * @module src/api/v1
+ * @requires {@link https://github.com/expressjs/express express}
+ * @requires src/middleware/model-finder
  */
 
 const cwd = process.cwd()
 
 const express = require('express')
 
-const { attachModel, listModels } = require(`${cwd}/src/middleware/model-finder.js`)
+const {
+  attachModel,
+  listModels
+} = require(`${cwd}/src/middleware/model-finder.js`)
 
 const router = express.Router()
 
@@ -19,8 +24,7 @@ router.param('model', attachModel)
 
 /** List array of available models */
 router.get('/api/v1/models', (req, res) => {
-  listModels()
-    .then(models => res.status(200).json(models))
+  listModels().then(models => res.status(200).json(models))
 })
 
 // API routes

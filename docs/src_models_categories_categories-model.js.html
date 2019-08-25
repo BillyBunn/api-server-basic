@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/500.js</title>
+    <title>JSDoc: Source: src/models/categories/categories-model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/500.js</h1>
+    <h1 class="page-title">Source: src/models/categories/categories-model.js</h1>
 
     
 
@@ -29,33 +29,32 @@
             <pre class="prettyprint source linenums"><code>'use strict'
 
 /**
- * @file Error-handler middleware
- * @module middleware/500
+ * @file Categories
+ * @module src/models/memory-model
+ * @requires {@link https://github.com/kelektiv/node-uuid uuid}
  */
 
-/**
- * Sends a JSON formatted error response
- * Defaults to status 500 if error thrown does not specify
- *
- * @param {(object|string)} err - Express server error message
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
- */
-function errorHandler(err, req, res, next) {
-  console.error('ERROR:', err)
 
-  const status = err.status || 500,
-    error = err.name || 'Unknown Error',
-    message = typeof err === 'string' ? err : err.message || 'An error occurred'
+// Exports an instance of a data model for categories.
 
-  res
-    .status(status)
-    .json({ status, error, message })
-    .end()
+const MemoryModel = require('../memory-model')
+
+const schema = {
+  _id: { required: true },
+  name: { required: true },
+  display_name: { required: true },
+  not_required: { required: false },
+  required_not_specified: { something: 10 }
 }
 
-module.exports = errorHandler
+/**
+ * Class representing a Category. Extends the memory model class to create a Categories class.
+ * @class Categories
+ * @extends {MemoryModel}
+ */
+class Categories extends MemoryModel {}
+
+module.exports = new Categories(schema)
 </code></pre>
         </article>
     </section>
