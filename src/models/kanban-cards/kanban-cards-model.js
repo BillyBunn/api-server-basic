@@ -11,7 +11,6 @@ require('mongoose-schema-jsonschema')(mongoose)
  */
 const schema = mongoose.Schema({
   text: { type: String, required: true },
-  // column: { type: String },
   board_id: {
     type: mongoose.Schema.ObjectId,
     ref: 'kanbanboard',
@@ -22,7 +21,6 @@ const schema = mongoose.Schema({
     ref: 'kanbanboard.columns',
     required: true
   },
-  // assignee: { type: String, required: true },
   complete: { type: Boolean, required: true, default: false }
 })
 
@@ -39,9 +37,13 @@ class KanbanCard extends MongoController {}
 /** Exports an instance of a KanbanCard class with CRUD operations */
 module.exports = new KanbanCard(model)
 
-// echo '{"text":"a task", "board_id":"column name"}' | http :3000/api/v1/kanban-cards
-// echo '{"text":"a task", "board_id":"5d63cfde3d37245a459000b9"}' | http PUT :3000/api/v1/kanban-cards/
-// echo '{"text":"a task", "column":"5d63490c8907b057d973db2c"}' | http :3000/api/v1/kanban-cards
+/*
+Example entry using HTTPie:
 
+echo '{
+  "text":"This is a task",
+  "board_id":"_______",
+  "column_id":"______",
+}' | http :3000/api/v1/kanban-cards
 
-// echo '{"text":"a task", "board_id":"5d63e9751c4ec45b0daa8152", "column_id":"5d63e9751c4ec45b0daa8157"}' | http :3000/api/v1/kanban-cards
+*/

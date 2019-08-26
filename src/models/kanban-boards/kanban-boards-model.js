@@ -77,3 +77,38 @@ echo '{"columns":["waiting", "working", "review", "complete", "celebrate"], "nam
 // "[{"name":"To do"}, {"name":"In progress"}, {"name":"Review"}, {"name":"Done"}]"
 
 
+/*
+
+Example entry using HTTPie:
+
+echo '{
+  "columns":[
+    {"name":"waiting"}, 
+    {"name":"working"}, 
+    {"name":"review"}, 
+    {"name":"complete"}, 
+    {"name":"celebrate"}
+  ], 
+  "name": "1st Board",
+  "description": "My very 1st kanban board"
+}' | http :3000/api/v1/kanban-boards
+
+echo '{
+  "columns":[
+    {"name":"To do"}, 
+    {"name":"In progress"}, 
+    {"name":"Being reviewed"}, 
+    {"name":"Completed"}
+  ], 
+  "name": "Another Board"
+}' | http :3000/api/v1/kanban-boards
+
+echo '{
+  "text":"This is a task",
+  "board_id":"_______",
+  "column_id":"______",
+}' | http :3000/api/v1/kanban-cards
+
+
+
+*/
