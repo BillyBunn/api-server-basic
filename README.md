@@ -32,6 +32,15 @@ Currently, the app has examples of a CRUD interface for:
 - [JSdocs][jsdoc]
 - [Swagger docs][swagger]
 
+### Info
+
+| HTTP Method | CRUD Operation | Status Code                                 | Route                                  | API V1 Middleware          |
+| ----------- | -------------- | ------------------------------------------- | -------------------------------------- | -------------------------- |
+| GET         | Read           | 200 (OK), 404 (Not Found)                   | `/api/v1/:model`, `/api/v1/:model/:id` | handleGetAll, handleGetOne |
+| POST        | Create         | 200 (OK), 404 (Not Found)                   | Route                                  | handlePost                 |
+| PUT         | Update         | 200 (OK), 204 (No Content), 404 (Not Found) | Route                                  | handlePut                  |
+| DELETE      | Delete         | 200 (OK), 404 (Not Found)                   | Route                                  | handleDelete               |
+
 ### Installation
 
 Get a local version of this server running with the following steps:
@@ -123,7 +132,7 @@ Retrieve a record from the database
 <details>
 <summary><strong>Example</strong></summary>
 
-After populating the database with the [example `PUT` requests,]() make the following `GET` request using HTTPie:
+After populating the database with the [example `POST` requests](#post), make the following `GET` request using HTTPie:
 
 ```
 http :3000/api/v1/teams
@@ -194,7 +203,7 @@ Update an existing record in the database
 <details>
 <summary><strong>Example</strong></summary>
 
-After populating the database with the [example `POST` requests](), make the following `PUT` request using HTTPie to update a document:
+After populating the database with the [example `POST` requests](#post), make the following `PUT` request using HTTPie to update a document:
 
 ```
 echo '{
@@ -229,7 +238,7 @@ Remove a record from the database
 <details>
 <summary><strong>Example</strong></summary>
 
-After populating the database with the [example `POST` requests](), make the following `PUT` request using HTTPie to update a document:
+After populating the database with the [example `POST` requests](#post), make the following `PUT` request using HTTPie to update a document:
 
 ```
 echo '{

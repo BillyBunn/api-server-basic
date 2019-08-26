@@ -29,10 +29,13 @@ const app = express()
 // Application-level middleware
 /** HTTP request logger */
 app.use(morgan('dev'))
+
 /** Shares resources from cross-origin requests */
 app.use(cors())
+
 /** Parses payload as JSON and exposes the resulting object on req.body. Based on body-parser. */
 app.use(express.json())
+
 /** Parses URL encoded data  and exposes the resulting object on req.body.
  * Note: browsers typically send form data in this format.
  */
@@ -43,7 +46,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/docs', express.static('docs'))
 
 /** Test routes */
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) =>
+  res.send(`
+<h1>REST API Server</h1>
+<h3>Created by <a href="https://billybunn.com/">Billy Bunn</a></h3>
+<p>Welcome to my basic REST API server, built with <a href="https://expressjs.com/">Express</a> in <a href="https://nodejs.org/">Node.js</a>.</p>
+<p>Check out <a href="https://github.com/BillyBunn/api-server-basic">the README on Github</a> to learn how to use it and how it was built.</p>
+`)
+)
 app.get('/error', (req, res, next) =>
   next({
     name: 'Test error',
@@ -61,7 +71,7 @@ app.use(errorHandler)
  *
  * @param {integer} [port=process.env.PORT] - starts the express server at port specified
  */
-const start = (port = process.env.PORT) =>
+const start = (port = process.env.PORT || 3000) =>
   app.listen(port, () => console.log(`Server up on port ${port}…`))
 
 module.exports = { start }
