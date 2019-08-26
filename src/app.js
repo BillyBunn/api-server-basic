@@ -74,4 +74,4 @@ app.use(errorHandler)
 const start = (port = process.env.PORT || 3000) =>
   app.listen(port, () => console.log(`Server up on port ${port}…`))
 
-module.exports = { start }
+module.exports = { start, app }
