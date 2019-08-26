@@ -4,6 +4,7 @@
   "description": "Extensible REST API server with CRUD methods. Built with Express in Node.js.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "jsdoc": "./node_modules/.bin/jsdoc -c ./docs/config/jsdoc.config.json",
     "test": "jest --verbose",
     "test-watch": "jest --watchAll --verbose"
