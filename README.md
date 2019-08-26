@@ -32,14 +32,26 @@ Currently, the app has examples of a CRUD interface for:
 - [JSdocs][jsdoc]
 - [Swagger docs][swagger]
 
-### Info
+## Endpoints
 
-| HTTP Method | CRUD Operation | Status Code                                 | Route                                  | API V1 Middleware          |
-| ----------- | -------------- | ------------------------------------------- | -------------------------------------- | -------------------------- |
-| GET         | Read           | 200 (OK), 404 (Not Found)                   | `/api/v1/:model`, `/api/v1/:model/:id` | handleGetAll, handleGetOne |
-| POST        | Create         | 200 (OK), 404 (Not Found)                   | Route                                  | handlePost                 |
-| PUT         | Update         | 200 (OK), 204 (No Content), 404 (Not Found) | Route                                  | handlePut                  |
-| DELETE      | Delete         | 200 (OK), 404 (Not Found)                   | Route                                  | handleDelete               |
+### CRUD Routes
+
+See links for examples of each method.
+
+| HTTP Method       | CRUD Operation | Status Code                                 | Route                                  | API V1 Middleware          |
+| ----------------- | -------------- | ------------------------------------------- | -------------------------------------- | -------------------------- |
+| [GET](#GET)       | Read           | 200 (OK), 404 (Not Found)                   | `/api/v1/:model`, `/api/v1/:model/:id` | handleGetAll, handleGetOne |
+| [POST](#POST)     | Create         | 200 (OK), 404 (Not Found)                   | `/api/v1/:model/:id`                   | handlePost                 |
+| [PUT](#PUT)       | Update         | 200 (OK), 204 (No Content), 404 (Not Found) | `/api/v1/:model/:id`                   | handlePut                  |
+| [DELETE](#DELETE) | Delete         | 200 (OK), 404 (Not Found)                   | `/api/v1/:model/:id`                   | handleDelete               |
+
+### Additional Routes
+
+| Route                   | Result                                               |
+| ----------------------- | ---------------------------------------------------- |
+| `/api/v1/models`        | API V1: Sends an array of all available data models. |
+| `/api/v1/:model/schema` | API V1: Sends the schema of the model in JSON format |
+| `/docs`                 | Serves static JSDoc generated site                   |
 
 ### Installation
 
@@ -68,7 +80,7 @@ Get a local version of this server running with the following steps:
     ```
     Consider using [nodemon](https://www.npmjs.com/package/nodemon) to make development easier.
 
-## Routes
+## CRUD Operation Examples
 
 ### `POST`
 
