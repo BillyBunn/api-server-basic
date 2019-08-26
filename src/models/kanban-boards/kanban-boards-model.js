@@ -109,6 +109,4 @@ echo '{
   "column_id":"______",
 }' | http :3000/api/v1/kanban-cards
 
-
-
 */

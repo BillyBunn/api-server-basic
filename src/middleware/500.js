@@ -17,9 +17,15 @@
 function errorHandler(err, req, res, next) {
   console.error('ERROR:', err)
 
-  const status = err.status || 500,
-    error = err.name || 'Unknown Error',
-    message = typeof err === 'string' ? err : err.message || 'An error occurred'
+  const status =
+    err.status ||
+    (err.name === 'ValidationError' && 400) ||
+    (err.name === 'CastError' && 404) ||
+    500
+
+  const error = err.name || 'Unknown Error'
+  const message =
+    typeof err === 'string' ? err : err.message || 'An error occurred'
 
   res
     .status(status)
