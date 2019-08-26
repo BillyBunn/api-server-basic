@@ -1,0 +1,6 @@
+{
+  "name": "api-server-basic",
+  "description": "Extensible REST API server with CRUD methods. Built with Express in Node.js.",
+  "repository": "https://github.com/BillyBunn/api-server-basic",
+  "keywords": ["node", "express", "mongodb", "mongo", "rest", "crud"]
+}

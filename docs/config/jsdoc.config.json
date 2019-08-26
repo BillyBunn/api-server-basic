@@ -1,0 +1,9 @@
+{
+  "source": {
+    "include": ["index.js", "./src"]
+  },
+  "opts": {
+    "destination": "./docs/",
+    "recurse": true
+  }
+}
