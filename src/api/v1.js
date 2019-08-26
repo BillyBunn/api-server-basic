@@ -27,6 +27,12 @@ router.get('/api/v1/models', (req, res) => {
   listModels().then(models => res.status(200).json(models))
 })
 
+/** Return the schema for a model in JSON format */
+router.get('/api/v1/:model/schema', (req, res) => {
+  console.log('req.model', req.model)
+  res.status(200).json(req.model.jsonSchema());
+});
+
 // API routes
 router.get('/api/v1/:model', handleGetAll)
 router.post('/api/v1/:model', handlePost)

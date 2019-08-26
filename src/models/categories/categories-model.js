@@ -1,29 +1,30 @@
 'use strict'
 
 /**
- * @file Categories
- * @module src/models/memory-model
+ * @file Exports an instance of the Categories model
+ * @module src/models/categories/categories-model
  * @requires {@link https://github.com/kelektiv/node-uuid uuid}
+ * @requires src/models/categories/categories-schema
  */
-
-
-// Exports an instance of a data model for categories.
 
 const MemoryModel = require('../memory-model')
 
-const schema = {
-  _id: { required: true },
-  name: { required: true },
-  display_name: { required: true },
-  not_required: { required: false },
-  required_not_specified: { something: 10 }
-}
+const schema = require('./categories.schema')
 
 /**
  * Class representing a Category. Extends the memory model class to create a Categories class.
  * @class Categories
  * @extends {MemoryModel}
  */
-class Categories extends MemoryModel {}
+class Categories extends MemoryModel {
+  static sampleRecord() {
+    return {
+      _id: '12345',
+      name: 'electronics',
+      display_name: 'Electronics, Computers & Office',
+      description: '',
+    }
+  }
+}
 
 module.exports = new Categories(schema)
