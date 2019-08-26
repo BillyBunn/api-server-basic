@@ -5,6 +5,8 @@ const MongoController = require('../mongo')
 const mongoose = require('mongoose')
 require('mongoose-schema-jsonschema')(mongoose)
 
+const columnSchema = mongoose.Schema({ name: { type: String, required: true } })
+
 /**
  * Mongoose schema
  * Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
@@ -13,8 +15,13 @@ const schema = mongoose.Schema(
   {
     name: { type: String, required: true },
     columns: {
-      type: [String],
-      default: ['To do', 'In progress', 'Review', 'Done'],
+      type: [columnSchema],
+      default: [
+        { name: 'To do' },
+        { name: 'In progress' },
+        { name: 'Review' },
+        { name: 'Done' }
+      ],
       validate: [
         function() {
           return this.columns.length <= 5
@@ -31,18 +38,17 @@ const schema = mongoose.Schema(
 schema.virtual('tasks', {
   ref: 'kanbancard',
   localField: '_id',
-  foreignField: 'column_id',
-  justOne:false,
-});
+  foreignField: 'board_id',
+  justOne: false
+})
 
 schema.pre('find', function() {
   try {
-    this.populate('tasks');
+    this.populate('tasks')
+  } catch (e) {
+    console.error('Find Error', e)
   }
-  catch(e) {
-    console.error('Find Error', e);
-  }
-});
+})
 
 /**
  * Compiles schema into a model.
@@ -56,3 +62,18 @@ class KanbanBoard extends MongoController {}
 
 /** Exports an instance of a KanbanBoard class with CRUD operations */
 module.exports = new KanbanBoard(model)
+
+/*
+echo '{"columns":[{"name":"To do"}, {"name":"In progress"}, {"name":"Review"}, {"name":"Done"}], "name": "1st Board"}' | http :3000/api/v1/kanban-boards
+
+echo '{"columns":[{"name":"waiting"}, {"name":"working"}, {"name":"review"}, {"name":"complete"}, {"name":"celebrate"}], "name": "1st Board"}' | http :3000/api/v1/kanban-boards
+
+echo '{"columns":["To do", "In progress", "Review", "Done"], "name": "1st Board"}' | http :3000/api/v1/kanban-boards
+
+echo '{"name": "1st Board"}' | http :3000/api/v1/kanban-boards
+
+echo '{"columns":["waiting", "working", "review", "complete", "celebrate"], "name": "2nd Board"}' | http :3000/api/v1/kanban-boards
+*/
+// "[{"name":"To do"}, {"name":"In progress"}, {"name":"Review"}, {"name":"Done"}]"
+
+

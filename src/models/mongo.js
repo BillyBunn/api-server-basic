@@ -70,8 +70,3 @@ class Model {
 }
 
 module.exports = Model
-
-/*
-echo '{"columns":["To do", "In progress", "Review", "Done"], "name": "1st Board"}' | http :3000/api/v1/kanban-boards
-echo '{"columns":["waiting", "working", "review", "complete", "celebrate"], "name": "2nd Board"}' | http :3000/api/v1/kanban-boards
-*/
