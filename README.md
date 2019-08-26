@@ -3,7 +3,7 @@
 [url]: https://billybunn-401-lab-09.herokuapp.com/
 [travis]: https://travis-ci.org/BillyBunn/api-server-basic
 [swagger]: http://xyz.com
-[jsdoc]: https://billybunn-401-lab-09.herokuapp.com/docs/
+[jsdoc]: https://api-server-basic.herokuapp.com/docs/
 
 <!-- BADGES -->
 
@@ -27,13 +27,9 @@ Currently, the app has examples of a CRUD interface for:
 
 ### Links and Resources
 
-- [Deployed server][url] (Heroku)
-- [Travis CI][travis] (continuous integration platform)
-
-#### Documentation
-
-- [JSdocs][jsdoc]
-- [Swagger docs][swagger]
+- [JSdoc API Documentation][jsdoc]
+- [Swagger Documentation][swagger]
+- [Travis CI][travis] (continuous integration)
 
 ## Endpoints
 
@@ -41,12 +37,12 @@ Currently, the app has examples of a CRUD interface for:
 
 See links for examples of each method.
 
-| HTTP Method       | CRUD Operation | Status Code                                 | Route                                  | API V1 Middleware          |
-| ----------------- | -------------- | ------------------------------------------- | -------------------------------------- | -------------------------- |
-| [GET](#GET)       | Read           | 200 (OK), 404 (Not Found)                   | `/api/v1/:model`, `/api/v1/:model/:id` | handleGetAll, handleGetOne |
-| [POST](#POST)     | Create         | 200 (OK), 404 (Not Found)                   | `/api/v1/:model/:id`                   | handlePost                 |
-| [PUT](#PUT)       | Update         | 200 (OK), 204 (No Content), 404 (Not Found) | `/api/v1/:model/:id`                   | handlePut                  |
-| [DELETE](#DELETE) | Delete         | 200 (OK), 404 (Not Found)                   | `/api/v1/:model/:id`                   | handleDelete               |
+| Route                                          | API V1 Middleware          | HTTP Method | CRUD Operation | Status Code                                 |
+| ---------------------------------------------- | -------------------------- | ----------- | -------------- | ------------------------------------------- |
+| [`/api/v1/:model`, `/api/v1/:model/:id`](#GET) | handleGetAll, handleGetOne | `GET`       | Read           | 200 (OK), 404 (Not Found)                   |
+| [`/api/v1/:model/:id`](#POST)                  | handlePost                 | `POST`      | Create         | 200 (OK), 404 (Not Found)                   |
+| [`/api/v1/:model/:id`](#PUT)                   | handlePut                  | `PUT`       | Update         | 200 (OK), 204 (No Content), 404 (Not Found) |
+| [`/api/v1/:model/:id`](#DELETE)                | handleDelete               | `DELETE`    | Delete         | 200 (OK), 404 (Not Found)                   |
 
 ### Additional Routes
 
