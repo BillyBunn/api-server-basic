@@ -1,7 +1,7 @@
 <!-- LINKS -->
 
 [url]: https://billybunn-401-lab-09.herokuapp.com/
-[travis]: https://travis-ci.com/401-advanced-javascript-billybunn/lab-09/builds/106270634
+[travis]: https://travis-ci.org/BillyBunn/api-server-basic
 [swagger]: http://xyz.com
 [jsdoc]: https://billybunn-401-lab-09.herokuapp.com/docs/
 
@@ -13,6 +13,8 @@
 # API Server
 
 #### Author: Billy Bunn
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Extensible REST API server with CRUD methods. Intended to integrate various data models through a common API. Built with [Express](https://expressjs.com/) in [Node.js](https://nodejs.org/en/).
 
@@ -279,34 +281,8 @@ The server will return the updated document. Something like:
 
 ---
 
-#### Tests
+### Deployment
 
-- How do you run tests?
-  - `npm run test`
-  - `npm run lint`
-    <!-- * What assertions were made?
-- What assertions need to be / should be made? -->
+You can quickly deploy your own version with Heroku using this button.
 
-#### UML
-
-![get](./assets/all.jpg)
-
-##### `GET /api/v1/:model`
-
-![get](./assets/get.jpg)
-
-##### `GET /api/v1/:model/:id`
-
-![get](./assets/get.jpg)
-
-##### `POST /api/v1/:model`
-
-![get](./assets/post.jpg)
-
-##### `DELETE /api/v1/:model/:id`
-
-![get](./assets/delete.jpg)
-
-##### `PUT /api/v1/:model/:id`
-
-![get](./assets/put.jpg)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
