@@ -3,6 +3,7 @@
  *  @module src/app
  *  @requires {@link https://github.com/expressjs/express express}
  *  @requires {@link https://github.com/expressjs/morgan morgan}
+ *  @requires {@link https://github.com/expressjs/cors cors}
  *  @requires src/api/v1
  *  @requires src/middleware/404
  *  @requires src/middleware/500
@@ -14,6 +15,7 @@ const cwd = process.cwd()
 
 // 3rd-party dependencies
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan')
 
 // Esoteric resources
@@ -27,6 +29,8 @@ const app = express()
 // Application-level middleware
 /** HTTP request logger */
 app.use(morgan('dev'))
+/** Shares resources from cross-origin requests */
+app.use(cors())
 /** Parses payload as JSON and exposes the resulting object on req.body. Based on body-parser. */
 app.use(express.json())
 /** Parses URL encoded data  and exposes the resulting object on req.body.
