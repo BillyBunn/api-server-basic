@@ -7,7 +7,7 @@
  * @requires src/models/categories/categories-schema
  */
 
-const MemoryModel = require('../memory-model')
+const MemoryModel = require('../memory')
 
 const schema = require('./categories.schema')
 

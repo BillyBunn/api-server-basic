@@ -9,21 +9,40 @@ require('mongoose-schema-jsonschema')(mongoose)
  * Mongoose schema
  * Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
  */
-const schema = mongoose.Schema({
-  name: { type: String, required: true },
-  columns: {
-    type: [String],
-    default: ['To do', 'In progress', 'Review', 'Done'],
-    validate: [
-      function() {
-        return this.columns.length <= 5
-      },
-      'Field "{PATH}" exceeds the limit of 5'
-    ],
-    required: true
+const schema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    columns: {
+      type: [String],
+      default: ['To do', 'In progress', 'Review', 'Done'],
+      validate: [
+        function() {
+          return this.columns.length <= 5
+        },
+        'Field "{PATH}" exceeds the limit of 5'
+      ],
+      required: true
+    },
+    description: { type: String }
   },
-  description: { type: String }
-})
+  { toObject: { virtuals: true }, toJSON: { virtuals: true } }
+)
+
+schema.virtual('tasks', {
+  ref: 'kanbancard',
+  localField: '_id',
+  foreignField: 'column_id',
+  justOne:false,
+});
+
+schema.pre('find', function() {
+  try {
+    this.populate('tasks');
+  }
+  catch(e) {
+    console.error('Find Error', e);
+  }
+});
 
 /**
  * Compiles schema into a model.
