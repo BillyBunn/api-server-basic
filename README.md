@@ -7,7 +7,8 @@
 
 <!-- BADGES -->
 
-[![Build Status](https://travis-ci.com/401-advanced-javascript-billybunn/lab-09.svg?branch=working)](https://travis-ci.com/401-advanced-javascript-billybunn/lab-09)
+[![Build Status](https://travis-ci.org/BillyBunn/api-server-basic.svg?branch=development)](https://travis-ci.org/BillyBunn/api-server-basic)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # API Server
 
