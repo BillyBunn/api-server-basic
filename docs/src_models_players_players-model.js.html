@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/model-finder.js</title>
+    <title>JSDoc: Source: src/models/players/players-model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/model-finder.js</h1>
+    <h1 class="page-title">Source: src/models/players/players-model.js</h1>
 
     
 
@@ -26,49 +26,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict'
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const Model = require('../mongo.js');
+const schema = require('./players-schema.js');
 
 /**
- * @file Data model utilities and middleware
- * @module src/middleware/model-finder
- * @requires {@link https://nodejs.org/api/fs.html#fs_file_system fs}
- * @requires {@link https://nodejs.org/api/util.html#util_util util}
+ * Class representing a Player.
+ * @extends Model
  */
+class Players extends Model {}
 
-const { readdir, statSync, lstatSync } = require('fs')
-const { promisify } = require('util')
+module.exports = new Players(schema);
 
-const modelsFolder = `${__dirname}/../models`
-
-/**
- * Evaluates req.params.model (i.e. /api/v1/:model/) and attaches an instance of the specified model onto the Express request object
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
- */
-function attachModel(req, res, next) {
-  let modelName = req.params.model.replace(/[^a-z0-9-_]/gi, '')
-  req.model = require(`../models/${modelName}/${modelName}-model.js`)
-  next()
-}
-
-/**
- * Lists all available models in the 'src/models/' directory using the Node file system module
- * @returns {Promise&lt;array>} A promise that contains an array of all available data models
- */
-function listModels() {
-  return promisify(readdir)(modelsFolder)
-    .then(contents =>
-      contents.filter(
-        item =>
-          lstatSync(`${modelsFolder}/${item}`).isDirectory() &amp;&amp;
-          statSync(`${modelsFolder}/${item}/${item}-model.js`)
-      )
-    )
-    .catch(console.error)
-}
-
-module.exports = { attachModel, listModels }
 </code></pre>
         </article>
     </section>

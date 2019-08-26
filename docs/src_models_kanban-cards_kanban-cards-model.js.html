@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/model-finder.js</title>
+    <title>JSDoc: Source: src/models/kanban-cards/kanban-cards-model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/model-finder.js</h1>
+    <h1 class="page-title">Source: src/models/kanban-cards/kanban-cards-model.js</h1>
 
     
 
@@ -28,48 +28,53 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict'
 
-/**
- * @file Data model utilities and middleware
- * @module src/middleware/model-finder
- * @requires {@link https://nodejs.org/api/fs.html#fs_file_system fs}
- * @requires {@link https://nodejs.org/api/util.html#util_util util}
- */
+const MongoController = require('../mongo')
 
-const { readdir, statSync, lstatSync } = require('fs')
-const { promisify } = require('util')
-
-const modelsFolder = `${__dirname}/../models`
+const mongoose = require('mongoose')
+require('mongoose-schema-jsonschema')(mongoose)
 
 /**
- * Evaluates req.params.model (i.e. /api/v1/:model/) and attaches an instance of the specified model onto the Express request object
- * @param {object} req - Express HTTP request object
- * @param {object} res - Express HTTP response object
- * @param {function} next - Express middleware function
+ * Mongoose schema
+ * Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
  */
-function attachModel(req, res, next) {
-  let modelName = req.params.model.replace(/[^a-z0-9-_]/gi, '')
-  req.model = require(`../models/${modelName}/${modelName}-model.js`)
-  next()
-}
+const schema = mongoose.Schema({
+  text: { type: String, required: true },
+  board_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'kanbanboard',
+    required: true
+  },
+  column_id: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'kanbanboard.columns',
+    required: true
+  },
+  complete: { type: Boolean, required: true, default: false }
+})
 
 /**
- * Lists all available models in the 'src/models/' directory using the Node file system module
- * @returns {Promise&lt;array>} A promise that contains an array of all available data models
+ * Compiles schema into a model.
+ * A model is a class with which we construct documents.
+ * Each document will be a kanban card with properties and behaviors as declared in our schema.
+ * 'KanbanCard' refers to the singular name of the collection the model is for (kanbancards)
  */
-function listModels() {
-  return promisify(readdir)(modelsFolder)
-    .then(contents =>
-      contents.filter(
-        item =>
-          lstatSync(`${modelsFolder}/${item}`).isDirectory() &amp;&amp;
-          statSync(`${modelsFolder}/${item}/${item}-model.js`)
-      )
-    )
-    .catch(console.error)
-}
+const model = mongoose.model('kanbancard', schema)
 
-module.exports = { attachModel, listModels }
-</code></pre>
+class KanbanCard extends MongoController {}
+
+/** Exports an instance of a KanbanCard class with CRUD operations */
+module.exports = new KanbanCard(model)
+
+/*
+Example entry using HTTPie:
+
+echo '{
+  "text":"This is a task",
+  "board_id":"_______",
+  "column_id":"______",
+}' | http :3000/api/v1/kanban-cards
+
+*/</code></pre>
         </article>
     </section>
 
